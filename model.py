@@ -331,7 +331,7 @@ class ContentLoss(nn.Module):
         ## go with it for now
 
 
-        sr_stack = torch.zeros([16, 3, 96, 96], dtype=torch.half)
+        sr_stack = torch.zeros([32, 3, 96, 96], dtype=torch.half)
 
         sr_stack[:, 0, :, :] = sr_tensor[:, 0, :, :]
         sr_stack[:, 1, :, :] = sr_tensor[:, 0, :, :]

@@ -35,8 +35,8 @@ TRAIN:
 
   # Model file address, used for pre-training and recovery training
   CHECKPOINT:
-    PRETRAINED_G_MODEL: "./results/SRGAN-PyTorch/results/SRGAN_x4-SRGAN_Lab_Server/g_last.pth.tar"
-    PRETRAINED_D_MODEL: "./results/SRGAN-PyTorch/results/SRGAN_x4-SRGAN_Lab_Server/d_last.pth.tar"
+    PRETRAINED_G_MODEL: "./results/SRGAN_x4-SRGAN_Lab_Server/g_last.pth.tar"
+    PRETRAINED_D_MODEL: "./results/SRGAN_x4-SRGAN_Lab_Server/d_last.pth.tar"
     RESUMED_G_MODEL: ""
     RESUMED_D_MODEL: ""
 

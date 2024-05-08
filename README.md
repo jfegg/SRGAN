@@ -69,7 +69,6 @@ $ python3 test.py --config_path ./configs/test/SRGAN_x4-SRGAN_ImageNet-Set5.yaml
 ```
 
 ### Test srresnet_x4
-
 ```shell
 $ python3 test.py --config_path ./configs/test/SRResNet_x4-SRGAN_ImageNet-Set5.yaml
 ```

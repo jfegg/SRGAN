@@ -1,9 +1,9 @@
 # experiment name
-EXP_NAME: SRGAN_x4-SRGAN_ImageNet
+EXP_NAME: SRGAN_x2-Cellpose
 # random number seed
 SEED: 0
 # super resolution magnification factor
-SCALE: 4
+SCALE: 2
 # run device model
 DEVICE_ID: 0
 
@@ -14,35 +14,35 @@ MODEL:
     DECAY: 0.999
     COMPILED: True
   G:
-    NAME: srresnet_x4
-    IN_CHANNELS: 1
-    OUT_CHANNELS: 1
+    NAME: srresnet_x2
+    IN_CHANNELS: 3
+    OUT_CHANNELS: 3
     CHANNELS: 64
     NUM_RCB: 16
     COMPILED: True
   D:
     NAME: discriminator_for_vgg
-    IN_CHANNELS: 1
+    IN_CHANNELS: 3
     OUT_CHANNELS: 1
     CHANNELS: 64
     COMPILED: False
 
 TRAIN:
   DATASET:
-    TRAIN_GT_IMAGES_DIR: "./data/SRGAN_ImageNet_train_GT_sub"
+    TRAIN_GT_IMAGES_DIR: "./data/cellpose_train_GT_sub"
 
     GT_IMAGE_SIZE: 96
 
   # Model file address, used for pre-training and recovery training
   CHECKPOINT:
-    PRETRAINED_G_MODEL: "./results/SRResNet_x4-SRGAN_ImageNet/g_last.pth.tar"
+    PRETRAINED_G_MODEL: ""
     PRETRAINED_D_MODEL: ""
     RESUMED_G_MODEL: ""
     RESUMED_D_MODEL: ""
 
   # training hyperparameters
   HYP:
-    EPOCHS: 18
+    EPOCHS: 5
 
     IMGS_PER_BATCH: 16
     SHUFFLE: True
@@ -85,8 +85,8 @@ TRAIN:
 
 TEST:
   DATASET:
-    PAIRED_TEST_GT_IMAGES_DIR: "./data/Set5/X4/GT"
-    PAIRED_TEST_LR_IMAGES_DIR: "./data/Set5/X4/LR"
+    PAIRED_TEST_GT_IMAGES_DIR: "./data/Set5/X2/GT"
+    PAIRED_TEST_LR_IMAGES_DIR: "./data/Set5/X2/LR"
 
   # Test hyperparameters
   HYP:

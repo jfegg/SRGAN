@@ -1,5 +1,5 @@
 # experiment name
-EXP_NAME: SRGAN_x4-SRGAN_ImageNet
+EXP_NAME: SRGAN_x4-SRGAN_Lab
 # random number seed
 SEED: 0
 # super resolution magnification factor
@@ -15,38 +15,38 @@ MODEL:
     COMPILED: True
   G:
     NAME: srresnet_x4
-    IN_CHANNELS: 1
-    OUT_CHANNELS: 1
+    IN_CHANNELS: 3
+    OUT_CHANNELS: 3
     CHANNELS: 64
     NUM_RCB: 16
     COMPILED: True
   D:
     NAME: discriminator_for_vgg
-    IN_CHANNELS: 1
+    IN_CHANNELS: 3
     OUT_CHANNELS: 1
     CHANNELS: 64
     COMPILED: False
 
 TRAIN:
   DATASET:
-    TRAIN_GT_IMAGES_DIR: "./data/SRGAN_ImageNet_train_GT_sub"
+    TRAIN_GT_IMAGES_DIR: "./data/art_splices"
 
     GT_IMAGE_SIZE: 96
 
   # Model file address, used for pre-training and recovery training
   CHECKPOINT:
-    PRETRAINED_G_MODEL: "./results/SRResNet_x4-SRGAN_ImageNet/g_last.pth.tar"
-    PRETRAINED_D_MODEL: ""
+    PRETRAINED_G_MODEL: "./results/pretrained_models/SRGAN_x4-SRGAN_ImageNet.pth.tar.1"
+    PRETRAINED_D_MODEL: "./results/pretrained_models/DiscriminatorForVGG_x4-SRGAN_ImageNet.pth.tar"
     RESUMED_G_MODEL: ""
     RESUMED_D_MODEL: ""
 
   # training hyperparameters
   HYP:
-    EPOCHS: 18
+    EPOCHS: 20
 
     IMGS_PER_BATCH: 16
     SHUFFLE: True
-    NUM_WORKERS: 4
+    NUM_WORKERS: 1
     PIN_MEMORY: True
     PERSISTENT_WORKERS: True
 
@@ -85,8 +85,8 @@ TRAIN:
 
 TEST:
   DATASET:
-    PAIRED_TEST_GT_IMAGES_DIR: "./data/Set5/X4/GT"
-    PAIRED_TEST_LR_IMAGES_DIR: "./data/Set5/X4/LR"
+    PAIRED_TEST_GT_IMAGES_DIR: "./data/hr_test"
+    PAIRED_TEST_LR_IMAGES_DIR: "./data/lr_test"
 
   # Test hyperparameters
   HYP:

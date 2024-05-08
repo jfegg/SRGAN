@@ -37,7 +37,7 @@ def build_iqa_model(
         crop_border: int,
         only_test_y_channel: bool,
         device: torch.device,
-) -> tuple[Any, Any]:
+) -> "tuple[Any, Any]":
     psnr_model = PSNR(crop_border=crop_border, only_test_y_channel=only_test_y_channel, data_range=1.0)
     ssim_model = SSIM(crop_border=crop_border, only_test_y_channel=only_test_y_channel, data_range=255.0)
 

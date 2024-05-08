@@ -74,14 +74,14 @@ class BaseImageDataset(Dataset):
             batch_index: int
     ) -> [Tensor, Tensor]:
         # Read a batch of ground truth images
-        gt_image = cv2.imread(self.gt_image_file_names[batch_index], cv2.IMREAD_GRAYSCALE).astype(np.float32) / 255.
-        # gt_image = cv2.cvtColor(gt_image, cv2.COLOR_BGR2RGB)
+        gt_image = cv2.imread(self.gt_image_file_names[batch_index]).astype(np.float32) / 255.
+        gt_image = cv2.cvtColor(gt_image, cv2.COLOR_BGR2RGB)
         gt_tensor = image_to_tensor(gt_image, False, False)
 
         # Read a batch of low-resolution images
         if self.lr_image_file_names is not None:
-            lr_image = cv2.imread(self.lr_image_file_names[batch_index], cv2.IMREAD_GRAYSCALE).astype(np.float32) / 255.
-            # lr_image = cv2.cvtColor(lr_image, cv2.COLOR_BGR2RGB)
+            lr_image = cv2.imread(self.lr_image_file_names[batch_index]).astype(np.float32) / 255.
+            lr_image = cv2.cvtColor(lr_image, cv2.COLOR_BGR2RGB)
             lr_tensor = image_to_tensor(lr_image, False, False)
         else:
             lr_tensor = image_resize(gt_tensor, 1 / self.upscale_factor)
@@ -121,18 +121,12 @@ class PairedImageDataset(Dataset):
 
     def __getitem__(self, batch_index: int) -> [Tensor, Tensor, str]:
         # Read a batch of image data
-
-        # print(batch_index)
-        # print(self.paired_gt_image_file_names[batch_index])
-
-        gt_image = cv2.imread(self.paired_gt_image_file_names[batch_index], cv2.IMREAD_GRAYSCALE).astype(np.float32) / 255.
-        lr_image = cv2.imread(self.paired_lr_image_file_names[batch_index], cv2.IMREAD_GRAYSCALE).astype(np.float32) / 255.
-
-        #fixed the issues now it is just the lr images that buggy I reccomend remaking all of them and trying again
+        gt_image = cv2.imread(self.paired_gt_image_file_names[batch_index]).astype(np.float32) / 255.
+        lr_image = cv2.imread(self.paired_lr_image_file_names[batch_index]).astype(np.float32) / 255.
 
         # BGR convert RGB
-        # gt_image = cv2.cvtColor(gt_image, cv2.COLOR_BGR2RGB)
-        # lr_image = cv2.cvtColor(lr_image, cv2.COLOR_BGR2RGB)
+        gt_image = cv2.cvtColor(gt_image, cv2.COLOR_BGR2RGB)
+        lr_image = cv2.cvtColor(lr_image, cv2.COLOR_BGR2RGB)
 
         # Convert image data into Tensor stream format (PyTorch).
         # Note: The range of input and output is between [0, 1]

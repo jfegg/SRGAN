@@ -402,13 +402,13 @@ def train(
         lr = batch_data["lr"].to(device, non_blocking=True)
 
         # image data augmentation
-        gt, lr = random_crop_torch(gt,
-                                   lr,
-                                   config["TRAIN"]["DATASET"]["GT_IMAGE_SIZE"],
-                                   config["SCALE"])
-        gt, lr = random_rotate_torch(gt, lr, config["SCALE"], [0, 90, 180, 270])
-        gt, lr = random_vertically_flip_torch(gt, lr)
-        gt, lr = random_horizontally_flip_torch(gt, lr)
+        # gt, lr = random_crop_torch(gt,
+        #                            lr,
+        #                            config["TRAIN"]["DATASET"]["GT_IMAGE_SIZE"],
+        #                            config["SCALE"])
+        # gt, lr = random_rotate_torch(gt, lr, config["SCALE"], [0, 90, 180, 270])
+        # gt, lr = random_vertically_flip_torch(gt, lr)
+        # gt, lr = random_horizontally_flip_torch(gt, lr)
 
         # Record the time to load a batch of data
         data_time.update(time.time() - end)
@@ -424,6 +424,7 @@ def train(
         # Calculate the perceptual loss of the generator, mainly including pixel loss, feature loss and confrontation loss
         with amp.autocast():
             sr = g_model(lr)
+
             pixel_loss = pixel_criterion(sr, gt)
             feature_loss = content_criterion(sr, gt)
             adversarial_loss = adversarial_criterion(d_model(sr), real_label)

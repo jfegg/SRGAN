@@ -1,0 +1,56 @@
+# FLANN_INDEX_LSH = 6
+# index_params= dict(algorithm = FLANN_INDEX_LSH,
+# table_number = 6, # 12
+#  key_size = 12, # 20
+#  multi_probe_level = 1) #2
+# search_params = dict(checks=50) # or pass empty dictionary
+
+# flann = cv2.FlannBasedMatcher(index_params, search_params)
+# matches = flann.knnMatch(descriptor_hr, descriptor_lr, k =2)
+
+# # print(matches)
+
+# matches_draw = []
+
+# for i in range(len(matches)):
+#     if len(matches[i]) >= 1:
+#         matches_draw.append(matches[i][0])
+
+
+sift = cv2.SIFT.create()
+orb = cv2.ORB.create()
+
+keypoints_hr, descriptor_hr = orb.detectAndCompute(img_hr, None)
+# keypoints_lr, descriptor_lr = sift_lr.detectAndCompute(img_lr, None)
+keypoints_lr, descriptor_lr = orb.detectAndCompute(img_lr, None)
+print(len(keypoints_hr), " ", len(keypoints_lr))
+
+img_hr = cv2.drawKeypoints(img_hr, keypoints_hr, 0, (225, 0, 0))
+
+img_lr_sift = img_lr
+img_lr_orb = img_lr
+
+# img_lr_sift = cv2.drawKeypoints(img_lr, keypoints_lr, img_lr_sift, (225, 0, 0))
+
+img_lr_orb = cv2.drawKeypoints(img_lr, keypoints_lr, img_lr_orb, (225, 0, 0))
+
+# cv2.imshow("Keypoints SIFT", img_lr_sift)
+cv2.imshow("Keypoints LR ORB", img_lr_orb)
+cv2.imshow("Keypoints HR ORB", img_hr)
+
+cv2.waitKey(0)
+
+cv2.destroyAllWindows()
+
+bf = cv2.BFMatcher(cv2.NORM_L2, crossCheck=True)
+
+matches = bf.match(descriptor_hr, descriptor_lr)
+matches = sorted(matches, key = lambda x:x.distance)
+
+match_img = cv2.drawMatches(img_hr, keypoints_hr, img_lr_orb, keypoints_lr, matches, None)
+
+cv2.imshow("Matches", match_img)
+
+cv2.waitKey(0)
+
+cv2.destroyAllWindows()

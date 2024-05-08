@@ -37,7 +37,7 @@ feature_extractor_net_cfgs: Dict[str, List[Union[str, int]]] = {
 def _make_layers(net_cfg_name: str, batch_norm: bool = False) -> nn.Sequential:
     net_cfg = feature_extractor_net_cfgs[net_cfg_name]
     layers: nn.Sequential[nn.Module] = nn.Sequential()
-    in_channels = 3
+    in_channels = 3       #theoretically I think if I change this I can use grayscale
     for v in net_cfg:
         if v == "M":
             layers.append(nn.MaxPool2d((2, 2), (2, 2)))
@@ -91,10 +91,14 @@ class _FeatureExtractor(nn.Module):
                 nn.init.constant_(module.bias, 0)
 
     def forward(self, x: Tensor) -> Tensor:
+        print("here in this forward function")
         return self._forward_impl(x)
 
     # Support torch.script function
     def _forward_impl(self, x: Tensor) -> Tensor:
+
+        print("In the FeatureExtractor Forward")
+
         x = self.features(x)
         x = self.avgpool(x)
         x = torch.flatten(x, 1)
@@ -106,8 +110,8 @@ class _FeatureExtractor(nn.Module):
 class SRResNet(nn.Module):
     def __init__(
             self,
-            in_channels: int = 3,
-            out_channels: int = 3,
+            in_channels: int = 1,
+            out_channels: int = 1,
             channels: int = 64,
             num_rcb: int = 16,
             upscale: int = 4,
@@ -172,7 +176,7 @@ class SRResNet(nn.Module):
 class DiscriminatorForVGG(nn.Module):
     def __init__(
             self,
-            in_channels: int = 3,
+            in_channels: int = 1,
             out_channels: int = 1,
             channels: int = 64,
     ) -> None:
@@ -216,6 +220,8 @@ class DiscriminatorForVGG(nn.Module):
 
     def forward(self, x: Tensor) -> Tensor:
         # Input image size must equal 96
+
+        # print(x.size())
         assert x.size(2) == 96 and x.size(3) == 96, "Input image size must be is 96x96"
 
         x = self.features(x)
@@ -311,14 +317,38 @@ class ContentLoss(nn.Module):
         assert sr_tensor.size() == gt_tensor.size(), "Two tensor must have the same size"
         device = sr_tensor.device
 
+
         losses = []
         # input normalization
-        sr_tensor = self.normalize(sr_tensor)
-        gt_tensor = self.normalize(gt_tensor)
+
+        #Let's try commenting this normalizing code out for now
+        # sr_tensor = self.normalize(sr_tensor)
+        # gt_tensor = self.normalize(gt_tensor)
 
         # Get the output of the feature extraction layer
-        sr_feature = self.feature_extractor(sr_tensor)
-        gt_feature = self.feature_extractor(gt_tensor)
+
+        ## I give up let's stack the image for this part and just
+        ## go with it for now
+
+
+        sr_stack = torch.zeros([16, 3, 96, 96], dtype=torch.half)
+
+        sr_stack[:, 0, :, :] = sr_tensor[:, 0, :, :]
+        sr_stack[:, 1, :, :] = sr_tensor[:, 0, :, :]
+        sr_stack[:, 2, :, :] = sr_tensor[:, 0, :, :]
+
+        sr_stack = sr_stack.to(device)
+
+        sr_feature = self.feature_extractor(sr_stack)
+
+        gt_stack = torch.zeros([16, 3, 96, 96], dtype=torch.half)
+
+        gt_stack[:, 0, :, :] = gt_tensor[:, 0, :, :]
+        gt_stack[:, 1, :, :] = gt_tensor[:, 0, :, :]
+        gt_stack[:, 2, :, :] = gt_tensor[:, 0, :, :]
+
+        gt_stack = gt_stack.to(device)
+        gt_feature = self.feature_extractor(gt_stack)
 
         # Compute feature loss
         for i in range(len(self.feature_extractor_nodes)):

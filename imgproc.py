@@ -145,7 +145,15 @@ def image_to_tensor(image: ndarray, range_norm: bool, half: bool) -> Tensor:
 
     """
     # Convert image data type to Tensor data type
+    # tensor = torch.from_numpy(np.ascontiguousarray(image)).permute(2, 0, 1).float()
+    
+    image = image[:, :, np.newaxis]
+
+    # print("Image shape: ", image.shape)
+
     tensor = torch.from_numpy(np.ascontiguousarray(image)).permute(2, 0, 1).float()
+
+    # print("Tensor shape: ", tensor.shape)
 
     # Scale the image data from [0, 1] to [-1, 1]
     if range_norm:
@@ -511,7 +519,7 @@ def random_crop(image: np.ndarray, image_size: int) -> np.ndarray:
 
 def random_rotate(image,
                   angles: list,
-                  center: tuple[int, int] = None,
+                  center: "tuple[int, int]" = None,
                   scale_factor: float = 1.0) -> np.ndarray:
     """Rotate an image by a random angle
 

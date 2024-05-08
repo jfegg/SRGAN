@@ -44,7 +44,7 @@ TRAIN:
   HYP:
     EPOCHS: 30
 
-    IMGS_PER_BATCH: 32
+    IMGS_PER_BATCH: 64
     SHUFFLE: True
     NUM_WORKERS: 12
     PIN_MEMORY: True

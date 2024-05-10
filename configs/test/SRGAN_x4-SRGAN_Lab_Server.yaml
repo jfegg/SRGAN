@@ -7,7 +7,7 @@ SCALE: 4
 # run device model
 DEVICE_ID: 0
 # Model weights path
-MODEL_WEIGHTS_PATH: "./results/SRGAN_x4-SRGAN_Lab_No_Content/g_last.pth.tar"
+MODEL_WEIGHTS_PATH: "./results/SRGAN_x4-SRGAN_Lab_No_Content20/g_last.pth.tar"
 
 # Model define
 MODEL:
@@ -35,4 +35,4 @@ TEST:
   # Only test Y channel
   ONLY_TEST_Y_CHANNEL: True
 
-  SAVE_IMAGE_DIR: "./data/no_content_loss_10"
+  SAVE_IMAGE_DIR: "./data/no_content_loss_20"

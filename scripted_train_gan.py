@@ -61,10 +61,10 @@ def main():
     # Define the running device number
     device = torch.device("cuda", 0)
 
-    train_dirs = ["/home/jfeggerd/turbo/density1_splices", "/home/jfeggerd/turbo/density5_splices", "/home/jfeggerd/turbo/density10_splices", "/home/jfeggerd/turbo/density50_splices"]
+    train_dirs = ["./data/density1_splices", "./data/density5_splices", "./data/density10_splices", "./data/density50_splices"]
     names = ["density1", "density5", "density10", "density50"]
-    test_gt_dir = "/home/jfeggerd/turbo/hr_test"
-    test_lr_dir = "/home/jfeggerd/turbo/lr_test"
+    test_gt_dir = "./data/hr_test"
+    test_lr_dir = "./data/lr_test"
 
     epochs = [5, 10, 20, 30, 50]
 

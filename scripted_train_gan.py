@@ -72,7 +72,7 @@ def main():
 
         print("Training with data from " + names[i])
 
-        train_data_prefetcher, paired_test_data_prefetcher = load_dataset_man(train_dirs[i], test_gt_dir, test_lr_dir, 4, 32, 8, device)
+        train_data_prefetcher, paired_test_data_prefetcher = load_dataset_man(train_dirs[i], test_gt_dir, test_lr_dir, 4, 16, 12, device)
         g_model, ema_g_model, d_model = build_model_man(1, 1, 64, 16, device)
         pixel_criterion, adversarial_criterion = define_loss_man(device)
         g_optimizer, d_optimizer = define_optimizer_man(g_model, d_model)
@@ -188,7 +188,7 @@ def load_dataset_man(train_gt_dir, test_gt_dir, test_lr_dir, scale_factor, batch
                                         shuffle=False,
                                         num_workers=1,
                                         pin_memory=True,
-                                        drop_last=False,
+                                        drop_last=True,
                                         persistent_workers=True)
 
     # Replace the data set iterator with CUDA to speed up

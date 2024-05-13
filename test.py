@@ -99,21 +99,21 @@ def test(
 
         while batch_data is not None:
             # Load batches of data
-            # gt = batch_data["gt"].to(device, non_blocking=True)
-            # lr = batch_data["lr"].to(device, non_blocking=True)
+            gt = batch_data["gt"].to(device, non_blocking=True)
+            lr = batch_data["lr"].to(device, non_blocking=True)
 
             # # Reasoning
-            # sr = g_model(lr)
+            sr = g_model(lr)
 
             # print(sr.shape)
 
             # Calculate the image sharpness evaluation index
-            # psnr = psnr_model(sr, gt)
-            # ssim = ssim_model(sr, gt)
+            psnr = psnr_model(sr, gt)
+            ssim = ssim_model(sr, gt)
 
             # # # record current metrics
-            # psnres.update(psnr.item(), sr.size(0))
-            # ssimes.update(ssim.item(), ssim.size(0))
+            psnres.update(psnr.item(), sr.size(0))
+            ssimes.update(ssim.item(), ssim.size(0))
 
             # Record the total time to verify a batch
             batch_time.update(time.time() - end)
@@ -124,13 +124,13 @@ def test(
                 progress.display(batch_index)
 
             # # Save the processed image after super-resolution
-            # if batch_data["image_name"] == "":
-            #     raise ValueError("The image_name is None, please check the dataset.")
-            # if save_image:
-            #     image_name = os.path.basename(batch_data["image_name"][0])
-            #     sr_image = tensor_to_image(sr, False, False)
-            #     sr_image = cv2.cvtColor(sr_image, cv2.COLOR_RGB2BGR)
-            #     cv2.imwrite(os.path.join(save_image_dir, image_name), sr_image)
+            if batch_data["image_name"] == "":
+                raise ValueError("The image_name is None, please check the dataset.")
+            if save_image:
+                image_name = os.path.basename(batch_data["image_name"][0])
+                sr_image = tensor_to_image(sr, False, False)
+                sr_image = cv2.cvtColor(sr_image, cv2.COLOR_RGB2BGR)
+                cv2.imwrite(os.path.join(save_image_dir, image_name), sr_image)
 
             # Preload the next batch of data
             batch_data = test_data_prefetcher.next()

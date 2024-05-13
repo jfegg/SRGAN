@@ -132,7 +132,7 @@ def main():
 
 
             #I don't need to save the checkpoint for every epoch, let's do every 5
-            if(epoch % 5 == 0):
+            if((epoch + 1) % 5 == 0):
                 # Automatically save model weights
                 is_best = psnr > best_psnr and ssim > best_ssim
                 is_last = (epoch + 1) == 50
@@ -144,7 +144,7 @@ def main():
                                 "state_dict": g_model.state_dict(),
                                 "ema_state_dict": ema_g_model.state_dict() if ema_g_model is not None else None,
                                 "optimizer": g_optimizer.state_dict()},
-                                f"epoch_{epoch + 1}.pth.tar",
+                                f"g_epoch_{epoch + 1}.pth.tar",
                                 samples_dir,
                                 results_dir,
                                 "g_best.pth.tar",
@@ -156,7 +156,7 @@ def main():
                                 "ssim": ssim,
                                 "state_dict": d_model.state_dict(),
                                 "optimizer": d_optimizer.state_dict()},
-                                f"epoch_{epoch + 1}.pth.tar",
+                                f"d_epoch_{epoch + 1}.pth.tar",
                                 samples_dir,
                                 results_dir,
                                 "d_best.pth.tar",

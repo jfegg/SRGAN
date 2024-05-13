@@ -7,7 +7,7 @@ SCALE: 4
 # run device model
 DEVICE_ID: 0
 # Model weights path
-MODEL_WEIGHTS_PATH: "./results/density1/epoch_11.path.tar"
+MODEL_WEIGHTS_PATH: ""
 
 # Model define
 MODEL:
@@ -21,8 +21,8 @@ MODEL:
 
 TEST:
   DATASET:
-    PAIRED_TEST_GT_IMAGES_DIR: "home/jfeggerd/turbo/hr_test"
-    PAIRED_TEST_LR_IMAGES_DIR: "home/jfeggerd/turbo/hr_test"
+    PAIRED_TEST_GT_IMAGES_DIR: "./data/hr_test"
+    PAIRED_TEST_LR_IMAGES_DIR: "./data/lr_test"
 
   # Test hyperparameters
   HYP:
@@ -35,4 +35,4 @@ TEST:
   # Only test Y channel
   ONLY_TEST_Y_CHANNEL: True
 
-  SAVE_IMAGE_DIR: "home/jfeggerd/turbo/density1_11"
+  SAVE_IMAGE_DIR: "./results/density1_10"

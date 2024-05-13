@@ -5,7 +5,7 @@ SEED: 0
 # super resolution magnification factor
 SCALE: 4
 # run device model
-DEVICE_ID: 1
+DEVICE_ID: 0
 
 # Model define
 MODEL:
@@ -29,7 +29,7 @@ MODEL:
 
 TRAIN:
   DATASET:
-    TRAIN_GT_IMAGES_DIR: "/home/jfeggerd/turbo/density5"
+    TRAIN_GT_IMAGES_DIR: "/home/jfeggerd/turbo/density1"
 
     GT_IMAGE_SIZE: 96
 

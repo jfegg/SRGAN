@@ -22,8 +22,8 @@ from tqdm import tqdm
 
 def main():
     args = {
-        "inputs_dir": "./data/density50",  # Path to input image directory.
-        "output_dir": "./data/density50_splices",  # Path to generator image directory.
+        "inputs_dir": "./data/density50_mod",  # Path to input image directory.
+        "output_dir": "./data/density50_train",  # Path to generator image directory.
         "crop_size": 96,  # Crop image size from raw image.
         "step": 96,  # Step size of sliding window.
         "thresh_size": 0,  # Threshold size. If the remaining image is less than the threshold, it will not be cropped.

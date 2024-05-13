@@ -68,6 +68,12 @@ def test(
     save_image = False
     save_image_dir = ""
 
+
+    if config["TEST"]["SAVE_IMAGE_DIR"]:
+        save_image = True
+        save_image_dir = os.path.join(config["TEST"]["SAVE_IMAGE_DIR"], config["EXP_NAME"])
+        make_directory(save_image_dir)
+
     # Calculate the number of iterations per epoch
     batches = len(test_data_prefetcher)
     # Interval printing
@@ -102,16 +108,14 @@ def test(
             gt = batch_data["gt"].to(device, non_blocking=True)
             lr = batch_data["lr"].to(device, non_blocking=True)
 
-            # # Reasoning
+            # Reasoning
             sr = g_model(lr)
-
-            # print(sr.shape)
 
             # Calculate the image sharpness evaluation index
             psnr = psnr_model(sr, gt)
             ssim = ssim_model(sr, gt)
 
-            # # # record current metrics
+            # # record current metrics
             psnres.update(psnr.item(), sr.size(0))
             ssimes.update(ssim.item(), ssim.size(0))
 
@@ -123,7 +127,7 @@ def test(
             if batch_index % print_freq == 0:
                 progress.display(batch_index)
 
-            # # Save the processed image after super-resolution
+            # Save the processed image after super-resolution
             if batch_data["image_name"] == "":
                 raise ValueError("The image_name is None, please check the dataset.")
             if save_image:

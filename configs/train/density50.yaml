@@ -1,5 +1,5 @@
 # experiment name
-EXP_NAME: SRGAN_x4-SRGAN_Lab_No_Content
+EXP_NAME: Density 50
 # random number seed
 SEED: 0
 # super resolution magnification factor
@@ -29,7 +29,7 @@ MODEL:
 
 TRAIN:
   DATASET:
-    TRAIN_GT_IMAGES_DIR: "/home/jfeggerd/turbo/density50"
+    TRAIN_GT_IMAGES_DIR: "/home/jfeggerd/turbo/density50_train"
 
     GT_IMAGE_SIZE: 96
 

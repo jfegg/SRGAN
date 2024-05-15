@@ -7,7 +7,7 @@ SCALE: 4
 # run device model
 DEVICE_ID: 0
 # Model weights path
-MODEL_WEIGHTS_PATH: "/mnt/c/users/jfegg/documents/cai_lab/SRGAN-PyTorch/samples/Density50/g_epoch_50.pth.tar"
+MODEL_WEIGHTS_PATH: "/mnt/c/users/jfegg/documents/cai_lab/SRGAN-PyTorch/samples/Density50_loss/g_epoch_50.pth.tar"
 
 # Model define
 MODEL:
@@ -35,4 +35,4 @@ TEST:
   # Only test Y channel
   ONLY_TEST_Y_CHANNEL: True
 
-  SAVE_IMAGE_DIR: "./results/density50"
+  SAVE_IMAGE_DIR: "./results/density50_loss"

@@ -432,13 +432,13 @@ def train(
             gt_squared = torch.square(gt) 
 
             pixel_loss = pixel_criterion(sr_squared, gt_squared) #Changed to the the squared inputs
-            # feature_loss = content_criterion(sr, gt)
+            feature_loss = content_criterion(sr, gt)
             adversarial_loss = adversarial_criterion(d_model(sr), real_label)
             pixel_loss = torch.sum(torch.mul(pixel_weight, pixel_loss))
-            # feature_loss = torch.sum(torch.mul(feature_weight, feature_loss))
+            feature_loss = torch.sum(torch.mul(feature_weight, feature_loss))
             adversarial_loss = torch.sum(torch.mul(adversarial_weight, adversarial_loss))
             # Compute generator total loss
-            g_loss = pixel_loss + adversarial_loss # + feature_loss
+            g_loss = pixel_loss + adversarial_loss + feature_loss
         # Backpropagation generator loss on generated samples
         scaler.scale(g_loss).backward()
         # update generator model weights

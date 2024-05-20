@@ -22,10 +22,10 @@ from tqdm import tqdm
 
 def main():
     args = {
-        "inputs_dir": "./data/mixed_mod",  # Path to input image directory.
-        "output_dir": "./data/art_mixed_train",  # Path to generator image directory.
+        "inputs_dir": "./data/real_hr_train",  # Path to input image directory.
+        "output_dir": "./data/real_train_splices",  # Path to generator image directory.
         "crop_size": 96,  # Crop image size from raw image.
-        "step": 96,  # Step size of sliding window.
+        "step": 192,  # Step size of sliding window.
         "thresh_size": 0,  # Threshold size. If the remaining image is less than the threshold, it will not be cropped.
         "num_workers": 10  # How many threads to open at the same time.
     }

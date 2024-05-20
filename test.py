@@ -133,7 +133,7 @@ def test(
             if save_image:
                 image_name = os.path.basename(batch_data["image_name"][0])
                 sr_image = tensor_to_image(sr, False, False)
-                sr_image = cv2.cvtColor(sr_image, cv2.COLOR_RGB2BGR)
+                # sr_image = cv2.cvtColor(sr_image, cv2.COLOR_RGB2BGR)
                 cv2.imwrite(os.path.join(save_image_dir, image_name), sr_image)
 
             # Preload the next batch of data

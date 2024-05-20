@@ -29,7 +29,7 @@ MODEL:
 
 TRAIN:
   DATASET:
-    TRAIN_GT_IMAGES_DIR: "/home/jfeggerd/turbo/density1_train"
+    TRAIN_GT_IMAGES_DIR: "/home/jfeggerd/turbo/art_mixed_train"
 
     GT_IMAGE_SIZE: 96
 

@@ -7,7 +7,7 @@ SCALE: 4
 # run device model
 DEVICE_ID: 0
 # Model weights path
-MODEL_WEIGHTS_PATH: "/mnt/c/users/jfegg/documents/cai_lab/SRGAN-PyTorch/samples/Real_Data_Old_Loss1/g_epoch_30.pth.tar"
+MODEL_WEIGHTS_PATH: "/mnt/c/users/jfegg/documents/cai_lab/SRGAN-PyTorch/samples/Old_Loss10000/g_epoch_30.pth.tar"
 
 # Model define
 MODEL:

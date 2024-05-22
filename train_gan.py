@@ -363,9 +363,11 @@ def train(
     batch_time = AverageMeter("Time", ":6.3f", Summary.NONE)
     data_time = AverageMeter("Data", ":6.3f", Summary.NONE)
     g_losses = AverageMeter("G Loss", ":6.6f", Summary.NONE)
+    pixel_losses = AverageMeter("Pixel Loss", ":6.6f", Summary.NONE)
+    feature_losses = AverageMeter("Feature Loss", ":6.6f", Summary.NONE)
     d_losses = AverageMeter("D Loss", ":6.6f", Summary.NONE)
     progress = ProgressMeter(batches,
-                             [batch_time, data_time, g_losses, d_losses],
+                             [batch_time, data_time, g_losses, d_losses, pixel_losses, feature_losses],
                              prefix=f"Epoch: [{epoch + 1}]")
 
     # Set the model to training mode
@@ -483,6 +485,8 @@ def train(
         # record the loss value
         d_losses.update(d_loss.item(), batch_size)
         g_losses.update(g_loss.item(), batch_size)
+        pixel_losses.update(pixel_loss.item(), batch_size)
+        feature_losses.update(feature_loss.item(), batch_size)
 
         # Record the total time of training a batch
         batch_time.update(time.time() - end)

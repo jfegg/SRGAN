@@ -331,7 +331,7 @@ class ContentLoss(nn.Module):
         ## go with it for now
 
 
-        sr_stack = torch.zeros([64, 3, 96, 96], dtype=torch.half)
+        sr_stack = torch.zeros([128, 3, 96, 96], dtype=torch.half)
 
         sr_stack[:, 0, :, :] = sr_tensor[:, 0, :, :]
         sr_stack[:, 1, :, :] = sr_tensor[:, 0, :, :]
@@ -341,7 +341,7 @@ class ContentLoss(nn.Module):
 
         sr_feature = self.feature_extractor(sr_stack)
 
-        gt_stack = torch.zeros([64, 3, 96, 96], dtype=torch.half)
+        gt_stack = torch.zeros([128, 3, 96, 96], dtype=torch.half)
 
         gt_stack[:, 0, :, :] = gt_tensor[:, 0, :, :]
         gt_stack[:, 1, :, :] = gt_tensor[:, 0, :, :]

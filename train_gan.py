@@ -277,7 +277,7 @@ def build_model(
 
 def define_loss(config: Any, device: torch.device) -> [nn.MSELoss, model.ContentLoss, nn.BCEWithLogitsLoss]:
     if config["TRAIN"]["LOSSES"]["PIXEL_LOSS"]["NAME"] == "MSELoss":
-        pixel_criterion = nn.MSELoss()
+        pixel_criterion = nn.MSELoss(reduction='sum')
     else:
         raise NotImplementedError(f"Loss {config['TRAIN']['LOSSES']['PIXEL_LOSS']['NAME']} is not implemented.")
 

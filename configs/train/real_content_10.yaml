@@ -1,5 +1,5 @@
 # experiment name
-EXP_NAME: Real_Data_Content_Loss10
+EXP_NAME: Old_Loss10
 # random number seed
 SEED: 0
 # super resolution magnification factor
@@ -44,9 +44,9 @@ TRAIN:
   HYP:
     EPOCHS: 30
 
-    IMGS_PER_BATCH: 32
+    IMGS_PER_BATCH: 128
     SHUFFLE: True
-    NUM_WORKERS: 12
+    NUM_WORKERS: 4
     PIN_MEMORY: True
     PERSISTENT_WORKERS: True
 

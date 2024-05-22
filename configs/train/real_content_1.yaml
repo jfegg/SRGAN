@@ -42,9 +42,9 @@ TRAIN:
 
   # training hyperparameters
   HYP:
-    EPOCHS: 40
+    EPOCHS: 30
 
-    IMGS_PER_BATCH: 64
+    IMGS_PER_BATCH: 32
     SHUFFLE: True
     NUM_WORKERS: 12
     PIN_MEMORY: True

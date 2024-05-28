@@ -13,6 +13,7 @@
 # ==============================================================================
 import argparse
 import os
+import statistics
 import time
 from typing import Any
 
@@ -92,6 +93,8 @@ def test(
     # set the model as validation model
     g_model.eval()
 
+    times = []
+
     with torch.no_grad():
         # Initialize data batches
         batch_index = 0
@@ -110,6 +113,12 @@ def test(
 
             # Reasoning
             sr = g_model(lr)
+
+            upscale_time = time.time()
+
+            times.append(upscale_time - end)
+
+            #print("Upscaling Time: " + str(upscale_time - end) + " seconds")
 
             # Calculate the image sharpness evaluation index
             psnr = psnr_model(sr, gt)
@@ -144,6 +153,8 @@ def test(
 
     # Print the performance index of the model at the current Epoch
     progress.display_summary()
+
+    print("Average Upscaling Time: " + str(statistics.mean(times)) + " seconds")
 
     return psnres.avg, ssimes.avg
 

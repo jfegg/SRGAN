@@ -1,5 +1,5 @@
 # experiment name
-EXP_NAME: New_Real_Data
+EXP_NAME: Real Data Ch 0 Channels 64
 # random number seed
 SEED: 0
 # super resolution magnification factor
@@ -29,7 +29,7 @@ MODEL:
 
 TRAIN:
   DATASET:
-    TRAIN_GT_IMAGES_DIR: "./data/real_train_splices"
+    TRAIN_GT_IMAGES_DIR: "/home/jfeggerd/turbo/real_hr_train_ch0_splices"
 
     GT_IMAGE_SIZE: 96
 
@@ -44,7 +44,7 @@ TRAIN:
   HYP:
     EPOCHS: 30
 
-    IMGS_PER_BATCH: 64
+    IMGS_PER_BATCH: 128
     SHUFFLE: True
     NUM_WORKERS: 8
     PIN_MEMORY: True
@@ -85,8 +85,8 @@ TRAIN:
 
 TEST:
   DATASET:
-    PAIRED_TEST_GT_IMAGES_DIR: "./data/real_hr_test"
-    PAIRED_TEST_LR_IMAGES_DIR: "./data/real_lr_test"
+    PAIRED_TEST_GT_IMAGES_DIR: "/home/jfeggerd/turbo/real_hr_test"
+    PAIRED_TEST_LR_IMAGES_DIR: "/home/jfeggerd/turbo/real_lr_test"
 
   # Test hyperparameters
   HYP:

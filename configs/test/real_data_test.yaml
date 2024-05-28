@@ -1,5 +1,5 @@
 # experiment name
-EXP_NAME: Content Loss Exceeding Pixel
+EXP_NAME: New Real Data
 # random number seed
 SEED: 0
 # Super resolution magnification factor
@@ -7,7 +7,7 @@ SCALE: 4
 # run device model
 DEVICE_ID: 0
 # Model weights path
-MODEL_WEIGHTS_PATH: "/mnt/c/users/jfegg/documents/cai_lab/SRGAN-PyTorch/samples/Content Loss Exceeding Pixel/g_epoch_20.pth.tar"
+MODEL_WEIGHTS_PATH: "/mnt/c/users/jfegg/documents/cai_lab/SRGAN-PyTorch/samples/New_Real_Data/g_epoch_30.pth.tar"
 
 # Model define
 MODEL:
@@ -35,4 +35,4 @@ TEST:
   # Only test Y channel
   ONLY_TEST_Y_CHANNEL: True
 
-  SAVE_IMAGE_DIR: "./results/real_data"
+  SAVE_IMAGE_DIR: "./results/new_real_data"

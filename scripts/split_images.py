@@ -22,8 +22,8 @@ from tqdm import tqdm
 
 def main():
     args = {
-        "inputs_dir": "./data/real_hr_train_ch0",  # Path to input image directory.
-        "output_dir": "./data/real_train_ch0_splices",  # Path to generator image directory.
+        "inputs_dir": "./old_data/ImageNet_gray",  # Path to input image directory.
+        "output_dir": "./data/ImageNet_splices",  # Path to generator image directory.
         "crop_size": 96,  # Crop image size from raw image.
         "step": 192,  # Step size of sliding window.
         "thresh_size": 0,  # Threshold size. If the remaining image is less than the threshold, it will not be cropped.

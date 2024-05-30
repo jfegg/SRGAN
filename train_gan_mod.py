@@ -434,10 +434,10 @@ def train(
         with amp.autocast():
             sr = g_model(lr)
 
-            sr_squared = torch.square(sr) # Square both the inputs to the MSE to boost it
-            gt_squared = torch.square(gt) 
+            # sr_squared = torch.square(sr) # Square both the inputs to the MSE to boost it
+            # gt_squared = torch.square(gt) 
 
-            pixel_loss = pixel_criterion(sr_squared, gt_squared) #Changed to the the squared inputs
+            pixel_loss = pixel_criterion(sr, gt) #Changed to the the squared inputs
             feature_loss = content_criterion(sr, gt)
             adversarial_loss = adversarial_criterion(d_model(sr), real_label)
             pixel_loss = torch.sum(torch.mul(pixel_weight, pixel_loss))

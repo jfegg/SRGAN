@@ -225,7 +225,7 @@ def build_model(
 
 def define_loss(config: Any, device: torch.device) -> nn.MSELoss:
     if config["TRAIN"]["LOSSES"]["PIXEL_LOSS"]["NAME"] == "MSELoss":
-        pixel_criterion = nn.MSELoss()
+        pixel_criterion = nn.MSELoss(reduction='sum')
     else:
         raise NotImplementedError(f"Loss {config['TRAIN']['LOSSES']['PIXEL_LOSS']['NAME']} is not implemented.")
     pixel_criterion = pixel_criterion.to(device)
@@ -306,7 +306,11 @@ def train(
         # Mixed precision training
         with amp.autocast():
             sr = g_model(lr)
-            pixel_loss = pixel_criterion(sr, gt)
+
+            sr_squared = torch.square(sr) # Square both the inputs to the MSE to boost it
+            gt_squared = torch.square(gt) 
+
+            pixel_loss = pixel_criterion(sr_squared, gt_squared) #Changed to the the squared inputs
             pixel_loss = torch.sum(torch.mul(loss_weight, pixel_loss))
 
         # Backpropagation

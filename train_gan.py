@@ -157,6 +157,8 @@ def main():
         g_scheduler.step()
         d_scheduler.step()
 
+        print("Learning Rate After an Epoch: " + str(g_scheduler.get_lr()))
+
         psnr, ssim = test(g_model,
                           paired_test_data_prefetcher,
                           psnr_model,

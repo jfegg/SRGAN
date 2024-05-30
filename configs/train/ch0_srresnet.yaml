@@ -23,7 +23,7 @@ MODEL:
 
 TRAIN:
   DATASET:
-    TRAIN_GT_IMAGES_DIR: "/home/jfeggerd/turbo/real_hr_train_ch0_splices"
+    TRAIN_GT_IMAGES_DIR: "/home/jfeggerd/turbo/real_train_ch0_splices"
 
     GT_IMAGE_SIZE: 96
 

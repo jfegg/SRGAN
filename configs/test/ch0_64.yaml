@@ -1,5 +1,5 @@
 # experiment name
-EXP_NAME: Real Data Ch 0 64 Channels
+EXP_NAME: Ch0 More Data
 # random number seed
 SEED: 0
 # Super resolution magnification factor
@@ -21,8 +21,8 @@ MODEL:
 
 TEST:
   DATASET:
-    PAIRED_TEST_GT_IMAGES_DIR: "./data/real_hr_test"
-    PAIRED_TEST_LR_IMAGES_DIR: "./data/real_lr_test"
+    PAIRED_TEST_GT_IMAGES_DIR: "./data/real_hr_test_ch0"
+    PAIRED_TEST_LR_IMAGES_DIR: "./data/real_lr_test_ch0"
 
   # Test hyperparameters
   HYP:

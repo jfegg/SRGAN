@@ -12,7 +12,7 @@ x_lim = 28000
 y_lim = 28000
 count = 0
 
-while count < 1024:
+while count < 100:
     z = random.randint(300,1000)
     x = random.randint(1, (x_lim / 2000)) * 2000
     y = random.randint(1, (y_lim / 2000)) * 2000
@@ -34,11 +34,11 @@ while count < 1024:
 
     img = (img).astype('uint8')
 
-    cv2.imwrite("./data/real_hr_train_ch0/test_" + str(x) + "_" + str(y) + "_" + str(z) + ".png", img)
+    cv2.imwrite("./data/real_hr_test_ch0/test_" + str(x) + "_" + str(y) + "_" + str(z) + ".png", img)
 
     img_lr = cv2.resize(img, (int(img.shape[0] / 4), int(img.shape[1] / 4)))
 
-    cv2.imwrite("./data/real_lr_train_ch0/test_" + str(x) + "_" + str(y) + "_" + str(z) +".png", img_lr)
+    cv2.imwrite("./data/real_lr_test_ch0/test_" + str(x) + "_" + str(y) + "_" + str(z) +".png", img_lr)
 
 
 

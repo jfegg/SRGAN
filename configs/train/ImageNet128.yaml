@@ -85,8 +85,8 @@ TRAIN:
 
 TEST:
   DATASET:
-    PAIRED_TEST_GT_IMAGES_DIR: ""
-    PAIRED_TEST_LR_IMAGES_DIR: ""
+    PAIRED_TEST_GT_IMAGES_DIR: "/home/jfeggerd/turbo/hr_test"
+    PAIRED_TEST_LR_IMAGES_DIR: "/home/jfeggerd/turbo/lr_test"
 
   # Test hyperparameters
   HYP:

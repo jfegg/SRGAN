@@ -135,6 +135,8 @@ def main():
     # create model training log
     writer = SummaryWriter(os.path.join("samples", "logs", config["EXP_NAME"]))
 
+    print("Learning Rate Before first Epoch: " + str(g_scheduler.get_lr()))
+
     for epoch in range(start_epoch, config["TRAIN"]["HYP"]["EPOCHS"]):
         train(g_model,
               ema_g_model,
@@ -329,10 +331,10 @@ def define_scheduler(g_optimizer: optim.Adam, d_optimizer: optim.Adam, config: A
     if config["TRAIN"]["LR_SCHEDULER"]["NAME"] == "MultiStepLR":
         g_scheduler = lr_scheduler.MultiStepLR(g_optimizer,
                                                config["TRAIN"]["LR_SCHEDULER"]["MILESTONES"],
-                                               config["TRAIN"]["LR_SCHEDULER"]["GAMMA"], verbose=True)
+                                               config["TRAIN"]["LR_SCHEDULER"]["GAMMA"])
         d_scheduler = lr_scheduler.MultiStepLR(d_optimizer,
                                                config["TRAIN"]["LR_SCHEDULER"]["MILESTONES"],
-                                               config["TRAIN"]["LR_SCHEDULER"]["GAMMA"], verbose=True)
+                                               config["TRAIN"]["LR_SCHEDULER"]["GAMMA"])
 
     else:
         raise NotImplementedError(f"LR Scheduler {config['TRAIN']['LR_SCHEDULER']['NAME']} is not implemented.")
@@ -445,6 +447,8 @@ def train(
         scaler.step(g_optimizer)
         scaler.update()
         # end training generator model
+
+        g_optimizer.l
 
         # start training the discriminator model
         # During discriminator model training, enable discriminator model backpropagation

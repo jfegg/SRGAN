@@ -59,7 +59,7 @@ TRAIN:
 
   LR_SCHEDULER:
     NAME: MultiStepLR
-    MILESTONES: [ 9 ]
+    MILESTONES: [ 10 ]
     GAMMA: 0.5
 
   # Loss function

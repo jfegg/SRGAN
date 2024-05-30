@@ -329,10 +329,10 @@ def define_scheduler(g_optimizer: optim.Adam, d_optimizer: optim.Adam, config: A
     if config["TRAIN"]["LR_SCHEDULER"]["NAME"] == "MultiStepLR":
         g_scheduler = lr_scheduler.MultiStepLR(g_optimizer,
                                                config["TRAIN"]["LR_SCHEDULER"]["MILESTONES"],
-                                               config["TRAIN"]["LR_SCHEDULER"]["GAMMA"])
+                                               config["TRAIN"]["LR_SCHEDULER"]["GAMMA"], verbose=True)
         d_scheduler = lr_scheduler.MultiStepLR(d_optimizer,
                                                config["TRAIN"]["LR_SCHEDULER"]["MILESTONES"],
-                                               config["TRAIN"]["LR_SCHEDULER"]["GAMMA"])
+                                               config["TRAIN"]["LR_SCHEDULER"]["GAMMA"], verbose=True)
 
     else:
         raise NotImplementedError(f"LR Scheduler {config['TRAIN']['LR_SCHEDULER']['NAME']} is not implemented.")

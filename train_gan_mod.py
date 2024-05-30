@@ -154,8 +154,8 @@ def main():
               config)
 
         # Update LR
-        g_scheduler.step()
-        d_scheduler.step()
+        # g_scheduler.step()
+        # d_scheduler.step()
 
         print("Learning Rate After an Epoch: " + str(g_scheduler.get_lr()))
 
@@ -410,8 +410,6 @@ def train(
 
         # image data augmentation
 
-        print("Going to augment")
-        print(gt.shape)
 
         gt, lr = random_crop_torch(gt,
                                    lr,

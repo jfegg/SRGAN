@@ -136,8 +136,6 @@ def main():
     # create model training log
     writer = SummaryWriter(os.path.join("samples", "logs", config["EXP_NAME"]))
 
-    print("Learning Rate Before first Epoch: " + str(g_scheduler.get_lr()))
-
     for epoch in range(start_epoch, config["TRAIN"]["HYP"]["EPOCHS"]):
         train(g_model,
               ema_g_model,
@@ -155,10 +153,8 @@ def main():
               config)
 
         # Update LR
-        # g_scheduler.step()
-        # d_scheduler.step()
-
-        print("Learning Rate After an Epoch: " + str(g_scheduler.get_lr()))
+        g_scheduler.step()
+        d_scheduler.step()
 
         psnr, ssim = test(g_model,
                           paired_test_data_prefetcher,
@@ -438,12 +434,8 @@ def train(
             sr = g_model(lr)
 
             pixel_loss = pixel_criterion(sr, gt)
+
             ssim_loss = ssim(sr, gt)
-            print("SSIM Raw Items " + str(ssim_loss.item()))
-
-            ssim_loss = torch.sub(1, ssim_loss)
-
-            print("SSIM Optimizable " + str(ssim_loss.item()))
 
             adversarial_loss = adversarial_criterion(d_model(sr), real_label)
             pixel_loss = torch.sum(torch.mul(pixel_weight, pixel_loss))
@@ -451,7 +443,6 @@ def train(
             adversarial_loss = torch.sum(torch.mul(adversarial_weight, adversarial_loss))
             # Compute generator total loss
 
-            print("SSIM" + str(ssim_loss.item()))
             g_loss = pixel_loss + ssim_loss + adversarial_loss
         # Backpropagation generator loss on generated samples
         scaler.scale(g_loss).backward()
@@ -512,6 +503,7 @@ def train(
             writer.add_scalar("Train/G_Loss", g_loss.item(), iters)
             writer.add_scalar("Train/Pixel_Loss", pixel_loss.item(), iters)
             writer.add_scalar("Train/Feature_Loss", 0, iters)
+            writer.add_scalar("Train/SSIM Loss", ssim_loss.item(), iters)
             writer.add_scalar("Train/Adversarial_Loss", adversarial_loss.item(), iters)
             writer.add_scalar("Train/D(GT)_Probability", torch.sigmoid_(torch.mean(gt_output.detach())).item(), iters)
             writer.add_scalar("Train/D(SR)_Probability", torch.sigmoid_(torch.mean(sr_output.detach())).item(), iters)

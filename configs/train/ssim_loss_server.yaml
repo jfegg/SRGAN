@@ -1,5 +1,5 @@
 # experiment name
-EXP_NAME: Add SSIM Loss Model
+EXP_NAME: SSIM Loss Model
 # random number seed
 SEED: 0
 # super resolution magnification factor
@@ -29,7 +29,7 @@ MODEL:
 
 TRAIN:
   DATASET:
-    TRAIN_GT_IMAGES_DIR: "./data/real_train_ch0_splices"
+    TRAIN_GT_IMAGES_DIR: "/home/jfeggerd/turbo/real_train_ch0_splices"
 
     GT_IMAGE_SIZE: 96
 
@@ -66,7 +66,7 @@ TRAIN:
   LOSSES:
     PIXEL_LOSS:
       NAME: MSELoss
-      WEIGHT: [ 100.0 ]
+      WEIGHT: [ 1.0 ]
     CONTENT_LOSS:
       NAME: ContentLoss
       NET_CFG_NAME: "vgg19"
@@ -79,7 +79,7 @@ TRAIN:
       WEIGHT: [ 0 ]
     ADVERSARIAL_LOSS:
       NAME: vanilla
-      WEIGHT: [ 0.1 ]
+      WEIGHT: [ 1.0 ]
     SSIM_LOSS:
       WEIGHT: [ 1.0 ]
 
@@ -87,8 +87,8 @@ TRAIN:
 
 TEST:
   DATASET:
-    PAIRED_TEST_GT_IMAGES_DIR: "./data/real_hr_test_ch0"
-    PAIRED_TEST_LR_IMAGES_DIR: "./data/real_lr_test_ch0"
+    PAIRED_TEST_GT_IMAGES_DIR: "/home/jfeggerd/turbo/real_hr_test_ch0"
+    PAIRED_TEST_LR_IMAGES_DIR: "/home/jfeggerd/turbo/real_lr_test_ch0"
 
   # Test hyperparameters
   HYP:

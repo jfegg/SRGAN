@@ -34,7 +34,7 @@ from imgproc import random_crop_torch, random_rotate_torch, random_vertically_fl
 from test import test
 from utils import build_iqa_model, load_resume_state_dict, load_pretrained_state_dict, make_directory, save_checkpoint, \
     Summary, AverageMeter, ProgressMeter
-from image_quality_assessment import SSIM
+from ssim import SSIM
 
 
 def main():
@@ -382,7 +382,7 @@ def train(
     feature_weight = torch.Tensor(config["TRAIN"]["LOSSES"]["CONTENT_LOSS"]["WEIGHT"]).to(device)
     adversarial_weight = torch.Tensor(config["TRAIN"]["LOSSES"]["ADVERSARIAL_LOSS"]["WEIGHT"]).to(device)
     ssim_weight = torch.Tensor(config["TRAIN"]["LOSSES"]["SSIM_LOSS"]["WEIGHT"]).to(device)
-    ssim = SSIM(only_test_y_channel=True, data_range=255.0, channels=1)
+    ssim = SSIM()
 
     # Initialize data batches
     batch_index = 0

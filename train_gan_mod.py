@@ -34,6 +34,7 @@ from imgproc import random_crop_torch, random_rotate_torch, random_vertically_fl
 from test import test
 from utils import build_iqa_model, load_resume_state_dict, load_pretrained_state_dict, make_directory, save_checkpoint, \
     Summary, AverageMeter, ProgressMeter
+from image_quality_assessment import SSIM
 
 
 def main():
@@ -281,7 +282,7 @@ def build_model(
 
 def define_loss(config: Any, device: torch.device) -> [nn.MSELoss, model.ContentLoss, nn.BCEWithLogitsLoss]:
     if config["TRAIN"]["LOSSES"]["PIXEL_LOSS"]["NAME"] == "MSELoss":
-        pixel_criterion = nn.MSELoss(reduction='sum')  #Changed this from the default mean to sum which should help amplify the loss
+        pixel_criterion = nn.MSELoss()  #Changed this from the default mean to sum which should help amplify the loss
     else:
         raise NotImplementedError(f"Loss {config['TRAIN']['LOSSES']['PIXEL_LOSS']['NAME']} is not implemented.")
 
@@ -380,6 +381,8 @@ def train(
     pixel_weight = torch.Tensor(config["TRAIN"]["LOSSES"]["PIXEL_LOSS"]["WEIGHT"]).to(device)
     feature_weight = torch.Tensor(config["TRAIN"]["LOSSES"]["CONTENT_LOSS"]["WEIGHT"]).to(device)
     adversarial_weight = torch.Tensor(config["TRAIN"]["LOSSES"]["ADVERSARIAL_LOSS"]["WEIGHT"]).to(device)
+    ssim_weight = torch.Tensor(config["TRAIN"]["LOSSES"]["SSIM_LOSS"]["WEIGHT"]).to(device)
+    ssim = SSIM(crop_border=config["SCALE"], only_test_y_channel=True, data_range=255.0)
 
     # Initialize data batches
     batch_index = 0
@@ -434,17 +437,14 @@ def train(
         with amp.autocast():
             sr = g_model(lr)
 
-            # sr_squared = torch.square(sr) # Square both the inputs to the MSE to boost it
-            # gt_squared = torch.square(gt) 
-
-            pixel_loss = pixel_criterion(sr, gt) #Changed to the the squared inputs
-            feature_loss = content_criterion(sr, gt)
+            pixel_loss = pixel_criterion(sr, gt)
+            ssim_loss = ssim(sr, gt)
             adversarial_loss = adversarial_criterion(d_model(sr), real_label)
             pixel_loss = torch.sum(torch.mul(pixel_weight, pixel_loss))
-            feature_loss = torch.sum(torch.mul(feature_weight, feature_loss))
+            ssim_loss = torch.sum(torch.mul(ssim_weight, ssim_loss))
             adversarial_loss = torch.sum(torch.mul(adversarial_weight, adversarial_loss))
             # Compute generator total loss
-            g_loss = pixel_loss + adversarial_loss + feature_loss
+            g_loss = pixel_loss + ssim_loss + adversarial_loss
         # Backpropagation generator loss on generated samples
         scaler.scale(g_loss).backward()
         # update generator model weights
@@ -503,7 +503,7 @@ def train(
             writer.add_scalar("Train/D(SR)_Loss", d_loss_sr.item(), iters)
             writer.add_scalar("Train/G_Loss", g_loss.item(), iters)
             writer.add_scalar("Train/Pixel_Loss", pixel_loss.item(), iters)
-            writer.add_scalar("Train/Feature_Loss", feature_loss.item(), iters)
+            writer.add_scalar("Train/Feature_Loss", 0, iters)
             writer.add_scalar("Train/Adversarial_Loss", adversarial_loss.item(), iters)
             writer.add_scalar("Train/D(GT)_Probability", torch.sigmoid_(torch.mean(gt_output.detach())).item(), iters)
             writer.add_scalar("Train/D(SR)_Probability", torch.sigmoid_(torch.mean(sr_output.detach())).item(), iters)

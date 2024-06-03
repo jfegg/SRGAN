@@ -382,8 +382,7 @@ def train(
     feature_weight = torch.Tensor(config["TRAIN"]["LOSSES"]["CONTENT_LOSS"]["WEIGHT"]).to(device)
     adversarial_weight = torch.Tensor(config["TRAIN"]["LOSSES"]["ADVERSARIAL_LOSS"]["WEIGHT"]).to(device)
     ssim_weight = torch.Tensor(config["TRAIN"]["LOSSES"]["SSIM_LOSS"]["WEIGHT"]).to(device)
-    print(ssim_weight)
-    ssim = SSIM(crop_border=config["SCALE"], only_test_y_channel=True, data_range=255.0)
+    ssim = SSIM(only_test_y_channel=True, data_range=255.0, channels=1)
 
     # Initialize data batches
     batch_index = 0
@@ -446,9 +445,7 @@ def train(
             adversarial_loss = torch.sum(torch.mul(adversarial_weight, adversarial_loss))
             # Compute generator total loss
 
-            print("Pixel" + str(pixel_loss))
-            print("SSIM" + str(ssim_loss))
-            print("Adversarial" + str(adversarial_loss))
+            print("SSIM" + str(ssim_loss.item()))
             g_loss = pixel_loss + ssim_loss + adversarial_loss
         # Backpropagation generator loss on generated samples
         scaler.scale(g_loss).backward()

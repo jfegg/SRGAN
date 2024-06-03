@@ -79,9 +79,9 @@ TRAIN:
       WEIGHT: [ 0 ]
     ADVERSARIAL_LOSS:
       NAME: vanilla
-      WEIGHT: [ 1.0 ]
+      WEIGHT: [ 100.0 ]
     SSIM_LOSS:
-      WEIGHT: [ 1.0 ]
+      WEIGHT: [ 0.1 ]
 
   PRINT_FREQ: 100
 

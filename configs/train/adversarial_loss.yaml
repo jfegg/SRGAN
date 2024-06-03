@@ -1,5 +1,5 @@
 # experiment name
-EXP_NAME: SSIM Loss Model
+EXP_NAME: Adversarial SSIM Loss Model Not Pretrained
 # random number seed
 SEED: 0
 # super resolution magnification factor
@@ -35,14 +35,14 @@ TRAIN:
 
   # Model file address, used for pre-training and recovery training
   CHECKPOINT:
-    PRETRAINED_G_MODEL: "./results/pretrained_models/SRGAN_x4-SRGAN_ImageNet.pth.tar.1"
-    PRETRAINED_D_MODEL: "./results/pretrained_models/DiscriminatorForVGG_x4-SRGAN_ImageNet.pth.tar"
+    PRETRAINED_G_MODEL: ""
+    PRETRAINED_D_MODEL: ""
     RESUMED_G_MODEL: ""
     RESUMED_D_MODEL: ""
 
   # training hyperparameters
   HYP:
-    EPOCHS: 20
+    EPOCHS: 30
 
     IMGS_PER_BATCH: 64
     SHUFFLE: True
@@ -66,7 +66,7 @@ TRAIN:
   LOSSES:
     PIXEL_LOSS:
       NAME: MSELoss
-      WEIGHT: [ 100.0 ]
+      WEIGHT: [ 1000.0 ]
     CONTENT_LOSS:
       NAME: ContentLoss
       NET_CFG_NAME: "vgg19"

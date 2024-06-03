@@ -439,6 +439,12 @@ def train(
 
             pixel_loss = pixel_criterion(sr, gt)
             ssim_loss = ssim(sr, gt)
+            print("SSIM Raw Items " + str(ssim_loss.item()))
+
+            ssim_loss = torch.sub(1, ssim_loss)
+
+            print("SSIM Optimizable " + str(ssim_loss.item()))
+
             adversarial_loss = adversarial_criterion(d_model(sr), real_label)
             pixel_loss = torch.sum(torch.mul(pixel_weight, pixel_loss))
             ssim_loss = torch.sum(torch.mul(ssim_weight, ssim_loss))

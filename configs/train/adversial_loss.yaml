@@ -66,7 +66,7 @@ TRAIN:
   LOSSES:
     PIXEL_LOSS:
       NAME: MSELoss
-      WEIGHT: [ 1.0 ]
+      WEIGHT: [ 100.0 ]
     CONTENT_LOSS:
       NAME: ContentLoss
       NET_CFG_NAME: "vgg19"

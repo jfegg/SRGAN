@@ -1,11 +1,11 @@
 # experiment name
-EXP_NAME: Adversarial SSIM Loss Model Sum MSE
+EXP_NAME: Adversarial SSIM Loss Model Sum MSE 2
 # random number seed
 SEED: 0
 # super resolution magnification factor
 SCALE: 4
 # run device model
-DEVICE_ID: 0
+DEVICE_ID: 1
 
 # Model define
 MODEL:
@@ -66,7 +66,7 @@ TRAIN:
   LOSSES:
     PIXEL_LOSS:
       NAME: MSELoss
-      WEIGHT: [ 0.01 ]
+      WEIGHT: [ 0.001 ]
     CONTENT_LOSS:
       NAME: ContentLoss
       NET_CFG_NAME: "vgg19"
@@ -81,7 +81,7 @@ TRAIN:
       NAME: vanilla
       WEIGHT: [ 100.0 ]
     SSIM_LOSS:
-      WEIGHT: [ 1 ]
+      WEIGHT: [ 0.1 ]
 
   PRINT_FREQ: 100
 

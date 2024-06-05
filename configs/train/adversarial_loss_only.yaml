@@ -1,11 +1,11 @@
 # experiment name
-EXP_NAME: Adversarial SSIM Loss Normal
+EXP_NAME: Adversarial Loss Only Normal
 # random number seed
 SEED: 0
 # super resolution magnification factor
 SCALE: 4
 # run device model
-DEVICE_ID: 0
+DEVICE_ID: 1
 
 # Model define
 MODEL:
@@ -81,7 +81,7 @@ TRAIN:
       NAME: vanilla
       WEIGHT: [ 100.0 ]
     SSIM_LOSS:
-      WEIGHT: [ 1 ]
+      WEIGHT: [ 0 ]
 
   PRINT_FREQ: 100
 

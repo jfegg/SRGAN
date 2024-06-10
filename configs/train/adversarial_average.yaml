@@ -1,5 +1,5 @@
 # experiment name
-EXP_NAME: Adversarial SSIM Loss Normal Lower SSIM
+EXP_NAME: Adversarial SSIM Loss Normal Average
 # random number seed
 SEED: 0
 # super resolution magnification factor
@@ -81,7 +81,7 @@ TRAIN:
       NAME: vanilla
       WEIGHT: [ 100.0 ]
     SSIM_LOSS:
-      WEIGHT: [ 0.1 ]
+      WEIGHT: [ 1 ]
 
   PRINT_FREQ: 100
 

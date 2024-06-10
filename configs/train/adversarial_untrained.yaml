@@ -1,5 +1,5 @@
 # experiment name
-EXP_NAME: Adversarial SSIM Loss Model Not Pretrained
+EXP_NAME: Adversarial SSIM Untrained
 # random number seed
 SEED: 0
 # super resolution magnification factor
@@ -29,7 +29,7 @@ MODEL:
 
 TRAIN:
   DATASET:
-    TRAIN_GT_IMAGES_DIR: "/home/jfeggerd/turbo/real_train_ch0_splices"
+    TRAIN_GT_IMAGES_DIR: "/home/jfeggerd/turbo/real_train_normal_splices"
 
     GT_IMAGE_SIZE: 96
 
@@ -42,7 +42,7 @@ TRAIN:
 
   # training hyperparameters
   HYP:
-    EPOCHS: 30
+    EPOCHS: 40
 
     IMGS_PER_BATCH: 64
     SHUFFLE: True
@@ -59,14 +59,14 @@ TRAIN:
 
   LR_SCHEDULER:
     NAME: MultiStepLR
-    MILESTONES: [ 9 ]
+    MILESTONES: [ 5 10 15 20 ]
     GAMMA: 0.5
 
   # Loss function
   LOSSES:
     PIXEL_LOSS:
       NAME: MSELoss
-      WEIGHT: [ 1000.0 ]
+      WEIGHT: [ 0.01 ]
     CONTENT_LOSS:
       NAME: ContentLoss
       NET_CFG_NAME: "vgg19"
@@ -81,14 +81,14 @@ TRAIN:
       NAME: vanilla
       WEIGHT: [ 100.0 ]
     SSIM_LOSS:
-      WEIGHT: [ 0.1 ]
+      WEIGHT: [ 1 ]
 
   PRINT_FREQ: 100
 
 TEST:
   DATASET:
-    PAIRED_TEST_GT_IMAGES_DIR: "/home/jfeggerd/turbo/real_hr_test_ch0"
-    PAIRED_TEST_LR_IMAGES_DIR: "/home/jfeggerd/turbo/real_lr_test_ch0"
+    PAIRED_TEST_GT_IMAGES_DIR: "/home/jfeggerd/turbo/real_hr_test_normal"
+    PAIRED_TEST_LR_IMAGES_DIR: "/home/jfeggerd/turbo/real_lr_test_normal"
 
   # Test hyperparameters
   HYP:

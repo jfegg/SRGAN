@@ -156,6 +156,9 @@ def main():
         g_scheduler.step()
         d_scheduler.step()
 
+        print(g_scheduler.get_last_lr())
+        print(d_scheduler.get_last_lr())
+
         psnr, ssim = test(g_model,
                           paired_test_data_prefetcher,
                           psnr_model,

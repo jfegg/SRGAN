@@ -1,5 +1,5 @@
 # experiment name
-EXP_NAME: Adversarial SSIM Loss Normal
+EXP_NAME: Adversarial SSIM Loss Normal Milestones
 # random number seed
 SEED: 0
 # super resolution magnification factor
@@ -59,7 +59,7 @@ TRAIN:
 
   LR_SCHEDULER:
     NAME: MultiStepLR
-    MILESTONES: [ 9 ]
+    MILESTONES: [ 5 10 15 20 ]
     GAMMA: 0.5
 
   # Loss function

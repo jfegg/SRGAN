@@ -1,5 +1,5 @@
 # experiment name
-EXP_NAME: Adversarial Average Milestone
+EXP_NAME: Adversarial No Milestones 10
 # random number seed
 SEED: 0
 # Super resolution magnification factor
@@ -7,7 +7,7 @@ SCALE: 4
 # run device model
 DEVICE_ID: 0
 # Model weights path
-MODEL_WEIGHTS_PATH: "/mnt/c/users/jfegg/documents/cai_lab/SRGAN-PyTorch/samples/Adversarial SSIM Loss Normal Average/g_epoch_25.pth.tar"
+MODEL_WEIGHTS_PATH: "/mnt/c/users/jfegg/documents/cai_lab/SRGAN-PyTorch/samples/Adversarial Loss None/g_epoch_10.pth.tar"
 
 # Model define
 MODEL:

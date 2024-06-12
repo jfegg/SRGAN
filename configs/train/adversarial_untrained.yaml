@@ -5,7 +5,7 @@ SEED: 0
 # super resolution magnification factor
 SCALE: 4
 # run device model
-DEVICE_ID: 1
+DEVICE_ID: 2
 
 # Model define
 MODEL:
@@ -59,7 +59,7 @@ TRAIN:
 
   LR_SCHEDULER:
     NAME: MultiStepLR
-    MILESTONES: [ 5 10 15 20 ]
+    MILESTONES: [ 5, 10, 15, 20 ]
     GAMMA: 0.5
 
   # Loss function

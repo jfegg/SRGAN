@@ -1,5 +1,5 @@
 # experiment name
-EXP_NAME: Adversarial SSIM Loss Normal Milestones
+EXP_NAME: Adversarial Loss 10 20
 # random number seed
 SEED: 0
 # super resolution magnification factor

@@ -34,7 +34,7 @@ TRAIN:
 
   # training hyperparameters
   HYP:
-    EPOCHS: 40
+    EPOCHS: 50
 
     IMGS_PER_BATCH: 128
     SHUFFLE: True

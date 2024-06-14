@@ -1,5 +1,5 @@
 # experiment name
-EXP_NAME: Adversarial No Milestones 10
+EXP_NAME: Default 20
 # random number seed
 SEED: 0
 # Super resolution magnification factor
@@ -7,7 +7,7 @@ SCALE: 4
 # run device model
 DEVICE_ID: 0
 # Model weights path
-MODEL_WEIGHTS_PATH: "/mnt/c/users/jfegg/documents/cai_lab/SRGAN-PyTorch/samples/Adversarial Loss None/g_epoch_10.pth.tar"
+MODEL_WEIGHTS_PATH: "/mnt/c/users/jfegg/documents/cai_lab/SRGAN-PyTorch/samples/Adversarial Loss None/g_epoch_20.pth.tar"
 
 # Model define
 MODEL:
@@ -35,4 +35,4 @@ TEST:
   # Only test Y channel
   ONLY_TEST_Y_CHANNEL: True
 
-  SAVE_IMAGE_DIR: "./results/normal"
+  SAVE_IMAGE_DIR: "./results/normal_pretrained"

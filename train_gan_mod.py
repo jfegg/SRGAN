@@ -173,7 +173,7 @@ def main():
 
         # Automatically save model weights
 
-        if ((epoch + 1) % 5 == 0):
+        if ((epoch + 1) % 10 == 0):
             is_best = psnr > best_psnr and ssim > best_ssim
             is_last = (epoch + 1) == config["TRAIN"]["HYP"]["EPOCHS"]
             best_psnr = max(psnr, best_psnr)

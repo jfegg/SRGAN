@@ -436,7 +436,7 @@ def train(
             # gt_squared = torch.square(gt) 
 
             pixel_loss = pixel_criterion(sr, gt) #Changed to the the squared inputs
-            feature_loss = content_criterion(sr, gt)
+            feature_loss = 0
             adversarial_loss = adversarial_criterion(d_model(sr), real_label)
             pixel_loss = torch.sum(torch.mul(pixel_weight, pixel_loss))
             feature_loss = torch.sum(torch.mul(feature_weight, feature_loss))
